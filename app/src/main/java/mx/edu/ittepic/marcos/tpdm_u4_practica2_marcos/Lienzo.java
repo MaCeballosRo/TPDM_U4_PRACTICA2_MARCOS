@@ -12,7 +12,6 @@ import android.os.Handler;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.LogRecord;
@@ -30,7 +29,6 @@ public class Lienzo extends SurfaceView {
     int intentos_jefe = 5;
     int total_tiempo_jefe = 10;
     boolean perdio=false;
-
 
     public Lienzo(Context context){
        super(context);
@@ -79,10 +77,14 @@ public class Lienzo extends SurfaceView {
                 if(perdio){
                     return;
                 }
-                if(total_moscas<=0 && jefeFinal==null){
-                    jefeFinal = crearMosca(R.drawable.jefe);
+                if(jefeFinal==null){
+                    if( total_moscas<=0) {
+                        jefeFinal = crearMosca(R.drawable.jefe);
+                    }else{
+                        total_tiempo--;
+                    }
                 }
-                total_tiempo--;
+
                 if(total_tiempo<=0 || total_tiempo_jefe <=0){
                     perdio = true;
                 }
@@ -113,13 +115,13 @@ public class Lienzo extends SurfaceView {
                 moscas1 = new ArrayList<>();
                 jefeFinal = null;
                 p.setTextSize(100);
-                c.drawText("Has ganado!",getWidth()/2,getHeight()/2,p);
+                c.drawText("Has ganado!",getWidth()/5,getHeight()/2,p);
                 return;
             }
             if(perdio){
                 moscas1 = new ArrayList<>();
                 p.setTextSize(100);
-                c.drawText("Derrota",getWidth()/2,getHeight()/2,p);
+                c.drawText("Derrota",getWidth()/4,getHeight()/2,p);
                 return;
             }
             if(total_moscas>0){
@@ -164,11 +166,7 @@ public class Lienzo extends SurfaceView {
                     mAuxiliar = moscas1.get(i);
                     if(mAuxiliar.golpe(posx,posy)){
                         moscas1.remove(mAuxiliar);
-                        Random r = new Random();
-                        int num = r.nextInt(3);
-                        for(int k=0;k<num;k++){
-                            moscas1.add(crearMosca(R.drawable.mosca1));
-                        }
+                        moscas1.add(crearMosca(R.drawable.mosca1));
                         total_moscas--;
                     }
                 }

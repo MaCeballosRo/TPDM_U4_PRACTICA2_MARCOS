@@ -23,7 +23,7 @@ public class Mosca {
         x = aleatorio.nextInt(400)+1;
         y = aleatorio.nextInt(800)+1;
         Random aleatorio1 = new Random(System.currentTimeMillis());
-        movX = aleatorio1.nextInt(50)+1;
+        movX = aleatorio1.nextInt(30)+1;
         movY = aleatorio1.nextInt(30)+1;
     }
 
